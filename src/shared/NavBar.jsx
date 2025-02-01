@@ -1,4 +1,4 @@
-import name from '../assets/the-global-lens.png'
+import logo from '../assets/the-global-lens.png'
 import { IoMdMenu } from "react-icons/io";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { CiBellOn, CiSearch } from "react-icons/ci";
@@ -10,8 +10,8 @@ import { AuthContext } from '../provider/AuthProvider';
 
 const NavBar = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
-    const { name } = useContext(AuthContext);
-    console.log(name);
+    const { user } = useContext(AuthContext);
+    // console.log(name);
 
 
     return (
@@ -52,7 +52,10 @@ const NavBar = () => {
                                         <NavLink className='block py-4 px-4 my-2 hover:bg-[#E2E8F0]' to='/fashion'>Fashion</NavLink>
                                     </div>
                                     <hr className='my-3 text-slate-300' />
-                                    <button className='py-3 w-full text-md font-semibold rounded bg-black text-white hover:bg-slate-800 cursor-pointer'>Log In</button>
+                                    {
+                                        user ? <p className='text-center font-bold py-3 text-red-500'> {user.email}</p>
+                                            : <button className='py-3 w-full text-md font-semibold rounded bg-black text-white hover:bg-slate-800 cursor-pointer'>Log In</button>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -66,11 +69,14 @@ const NavBar = () => {
                 </div>
             </div>
             <div className="justify-self-center">
-                <img className='w-[360px]  min-w-[185px]' src={name} alt="" />
+                <img className='w-[360px]  min-w-[185px]' src={logo} alt="" />
             </div>
             <div className="justify-self-end">
                 <div className='flex items-center gap-1'>
-                    <Link to='/login' className='py-[6px] px-4 text-sm font-semibold rounded bg-black text-white hover:scale-105 cursor-pointer'>Log In</Link>
+                    {
+                        user ? <p className='font-semibold hidden sm:block'>{user.email}</p>
+                            : <Link to='/login' className='py-[6px] px-4 text-sm font-semibold rounded bg-black text-white hover:scale-105 cursor-pointer'>Log In</Link>
+                    }
                     <CiBellOn className='text-3xl hover:scale-110 cursor-pointer hidden md:block'></CiBellOn>
                     <div className=''>
                         <input

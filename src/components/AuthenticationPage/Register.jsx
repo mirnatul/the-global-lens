@@ -1,15 +1,27 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/the-global-lens.png'
 import { FaGoogle } from "react-icons/fa";
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleSubmit = e => {
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name, email, password);
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                navigate('/')
+            })
+            .catch(error => {
+                console.log(error);
+            })
 
     }
     return (
