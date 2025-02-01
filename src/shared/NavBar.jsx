@@ -4,11 +4,16 @@ import { TiWeatherPartlySunny } from "react-icons/ti";
 import { CiBellOn, CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import moment from 'moment';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
 
 const NavBar = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
+    const { name } = useContext(AuthContext);
+    console.log(name);
+
+
     return (
         <div className="grid grid-cols-3 items-center mt-2">
             <div className="justify-self-start flex items-center gap-2">
