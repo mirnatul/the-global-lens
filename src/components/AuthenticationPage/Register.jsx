@@ -6,7 +6,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
-    const { createUser, handleGoogleSignIn } = useContext(AuthContext);
+    const { loading, createUser, handleGoogleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = e => {
@@ -14,6 +14,9 @@ const Register = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        if (password.length < 6) {
+            return alert("Password must be more than 6 character")
+        }
         const photoURL = e.target.photoURL.value;
         console.log(name, email, password);
         createUser(email, password)
@@ -25,26 +28,29 @@ const Register = () => {
                     photoURL: photoURL
                 })
                     .then(() => {
+                        // setLoading(true)
                         navigate('/')
+                        // setLoading(false)
                     })
-                    .catch()
-            })
-            .catch(error => {
-                // alert(error.message);
-            })
-    }
-
-    const logInWithGoogle = () => {
-        handleGoogleSignIn()
-            .then(result => {
-                navigate('/')
-                console.log(result.user);
+                    .catch(error => {
+                        console.log(error.message);
+                    })
             })
             .catch(error => {
                 console.log(error.message);
             })
     }
 
+    const logInWithGoogle = () => {
+        handleGoogleSignIn()
+            .then(result => {
+                console.log(result.user);
+                navigate('/')
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
 
     return (
         <div style={{ backgroundImage: "url('https://images.pexels.com/photos/1022692/pexels-photo-1022692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }} className="bg-slate-200">
@@ -52,7 +58,7 @@ const Register = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 h-screen items-center">
                     {/* form */}
                     <div className='mx-auto lg:mx-0'>
-                        <div className="bg-white py-16 px-20 max-w-[550px]">
+                        <div className="bg-white py-8 px-20 max-w-[550px]">
                             <img className='w-56' src={logo} alt="" />
                             <hr className='border-1 my-2' />
                             <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center mt-10'>
@@ -61,7 +67,7 @@ const Register = () => {
                                     <div className="label">
                                         <span className="label-text">Name</span>
                                     </div>
-                                    <input name='name' type="text" placeholder="Your Name..." className="input input-bordered w-full max-w-xs" />
+                                    <input name='name' type="text" placeholder="Your Name..." className="input input-bordered w-full max-w-xs" required />
                                 </label>
                                 <label className="form-control w-full max-w-xs mb-3">
                                     <div className="label">
@@ -73,21 +79,21 @@ const Register = () => {
                                     <div className="label">
                                         <span className="label-text">Email</span>
                                     </div>
-                                    <input name='email' type="email" placeholder="Your Email..." className="input input-bordered w-full max-w-xs" />
+                                    <input name='email' type="email" placeholder="Your Email..." className="input input-bordered w-full max-w-xs" required />
                                 </label>
                                 <label className="form-control w-full max-w-xs mb-3">
                                     <div className="label">
                                         <span className="label-text">Password</span>
                                     </div>
-                                    <input name='password' type="password" placeholder="Your Password..." className="input input-bordered w-full max-w-xs" />
+                                    <input name='password' type="password" placeholder="Your Password..." className="input input-bordered w-full max-w-xs" required />
                                 </label>
                                 <div className='mt-4'>
-                                    <input className='btn bg-black text-white w-xs' type="submit" value="Register" />
+                                    <input className='btn bg-black text-white w-xs' type={!loading && "submit"} value={loading ? "Loading..." : "Register"} />
                                 </div>
                                 <div className='mt-2'>
-                                    <button onClick={logInWithGoogle} on className='btn bg-[#4285F4] text-white w-xs'>
+                                    <button disabled={loading ? true : false} onClick={logInWithGoogle} on className='btn bg-[#4285F4] text-white w-xs'>
                                         <FaGoogle></FaGoogle>
-                                        <p>Login with Google</p>
+                                        <p>{loading ? "Loading..." : "Login with Google"}</p>
                                     </button>
                                 </div>
                             </form>

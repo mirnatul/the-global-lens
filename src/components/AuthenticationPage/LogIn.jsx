@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../provider/AuthProvider';
 
 const LogIn = () => {
-    const { signInUser, handleGoogleSignIn } = useContext(AuthContext);
+    const { loading, signInUser, handleGoogleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = e => {
@@ -63,12 +63,12 @@ const LogIn = () => {
                                     <input name='password' type="password" placeholder="Your Password" className="input input-bordered w-full max-w-xs" />
                                 </label>
                                 <div className='mt-4'>
-                                    <input className='btn bg-black text-white w-xs' type="submit" value="Log In" />
+                                    <input className='btn bg-black text-white w-xs' type="submit" value={loading ? "Loading..." : "Log In"} />
                                 </div>
                                 <div className='mt-2'>
-                                    <button onClick={logInWithGoogle} className='btn bg-[#4285F4] text-white w-xs'>
+                                    <button disabled={loading ? true : false} onClick={logInWithGoogle} className='btn bg-[#4285F4] text-white w-xs'>
                                         <FaGoogle></FaGoogle>
-                                        <p>Login with Google</p>
+                                        <p>{loading ? "Loading..." : "Login with Google"}</p>
                                     </button>
                                 </div>
                             </form>

@@ -6,7 +6,7 @@ import { CiBellOn, CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import moment from 'moment';
 import { useContext, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, Navigate, NavLink } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
 const NavBar = () => {
@@ -64,7 +64,7 @@ const NavBar = () => {
                                     {
                                         user ? <div className='grid grid-cols-2 gap-3 px-3'>
                                             <div className='flex items-center justify-around bg-slate-200 py-2'>
-                                                <p className='text-center font-bold'> {user.displayName.split(' ')[0]}</p>
+                                                <p className='text-center font-bold'> {user?.displayName?.split(' ')[0]}</p>
                                                 <div className="avatar">
                                                     <div className="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
                                                         <img src={user.photoURL ? user.photoURL : avatar} />
@@ -75,7 +75,9 @@ const NavBar = () => {
                                                 <button onClick={handleLogOut} className='btn btn-error w-full h-full font-bold'>Log Out</button>
                                             </div>
                                         </div>
-                                            : <button className='py-3 w-full text-md font-semibold rounded bg-black text-white hover:bg-slate-800 cursor-pointer'>Log In</button>
+                                            : <Link to='/login' >
+                                                <button className='py-3 w-full text-md font-semibold rounded bg-black text-white hover:bg-slate-800 cursor-pointer' >Log In</button>
+                                            </Link>
                                     }
                                 </div>
                             </div>
@@ -97,7 +99,7 @@ const NavBar = () => {
                     {
                         user ?
                             <div className='flex items-center gap-2'>
-                                <p className='text-center font-bold hidden md:block'> {user.displayName?.split(' ')[0]}</p>
+                                <p className='text-center font-bold hidden md:block'> {user?.displayName?.split(' ')[0]}</p>
                                 <div className="dropdown dropdown-end">
                                     <div tabIndex={0} role="button" className="">
                                         <div className="avatar mr-3 cursor-pointer">
