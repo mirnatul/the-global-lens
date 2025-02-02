@@ -1,4 +1,5 @@
 import logo from '../assets/the-global-lens.png'
+import avatar from '../assets/dummy_image.png'
 import { IoMdMenu } from "react-icons/io";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { CiBellOn, CiSearch } from "react-icons/ci";
@@ -10,8 +11,16 @@ import { AuthContext } from '../provider/AuthProvider';
 
 const NavBar = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     // console.log(name);
+
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch(error => {
+                alert(error.message);
+            })
+    }
 
 
     return (
@@ -53,7 +62,19 @@ const NavBar = () => {
                                     </div>
                                     <hr className='my-3 text-slate-300' />
                                     {
-                                        user ? <p className='text-center font-bold py-3 text-red-500'> {user.email}</p>
+                                        user ? <div className='grid grid-cols-2 gap-3 px-3'>
+                                            <div className='flex items-center justify-around bg-slate-200 py-2'>
+                                                <p className='text-center font-bold'> {user.displayName.split(' ')[0]}</p>
+                                                <div className="avatar">
+                                                    <div className="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
+                                                        <img src={user.photoURL ? user.photoURL : avatar} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className=''>
+                                                <button onClick={handleLogOut} className='btn btn-error w-full h-full font-bold'>Log Out</button>
+                                            </div>
+                                        </div>
                                             : <button className='py-3 w-full text-md font-semibold rounded bg-black text-white hover:bg-slate-800 cursor-pointer'>Log In</button>
                                     }
                                 </div>
@@ -74,11 +95,26 @@ const NavBar = () => {
             <div className="justify-self-end">
                 <div className='flex items-center gap-1'>
                     {
-                        user ? <p className='font-semibold hidden sm:block'>{user.email}</p>
+                        user ?
+                            <div className='flex items-center gap-2'>
+                                <p className='text-center font-bold hidden md:block'> {user.displayName.split(' ')[0]}</p>
+                                <div className="dropdown dropdown-end">
+                                    <div tabIndex={0} role="button" className="">
+                                        <div className="avatar mr-3 cursor-pointer">
+                                            <div className="ring-primary ring-offset-base-100 w-8 lg:w-10 rounded-full ring ring-offset-2">
+                                                <img src={user.photoURL ? user.photoURL : avatar} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 p-2 shadow">
+                                        <button onClick={handleLogOut} className='btn btn-error font-bold'>Log Out</button>
+                                    </ul>
+                                </div>
+                            </div>
                             : <Link to='/login' className='py-[6px] px-4 text-sm font-semibold rounded bg-black text-white hover:scale-105 cursor-pointer'>Log In</Link>
                     }
                     <CiBellOn className='text-3xl hover:scale-110 cursor-pointer hidden md:block'></CiBellOn>
-                    <div className=''>
+                    <div className='hidden sm:block'>
                         <input
                             type="checkbox"
                             value="synthwave"

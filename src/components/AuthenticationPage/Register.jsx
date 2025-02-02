@@ -3,6 +3,7 @@ import logo from '../../assets/the-global-lens.png'
 import { FaGoogle } from "react-icons/fa";
 import React, { useContext } from 'react';
 import { AuthContext } from '../../provider/AuthProvider';
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
     const { createUser } = useContext(AuthContext);
@@ -13,14 +14,23 @@ const Register = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const photoURL = e.target.photoURL.value;
         console.log(name, email, password);
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
-                navigate('/')
+                const currentUser = result.user;
+                // console.log(result.user);
+                updateProfile(currentUser, {
+                    displayName: name,
+                    photoURL: photoURL
+                })
+                    .then(() => {
+                        navigate('/')
+                    })
+                    .catch()
             })
             .catch(error => {
-                console.log(error);
+                alert(error.message);
             })
 
     }
@@ -35,28 +45,29 @@ const Register = () => {
                             <hr className='border-1 my-2' />
                             <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center mt-10'>
                                 <p className='font-bold text-xl mb-6'>Create account</p>
-                                <label className="form-control w-full max-w-xs">
+                                <label className="form-control w-full max-w-xs mb-3">
                                     <div className="label">
                                         <span className="label-text">Name</span>
                                     </div>
-                                    <br />
-                                    <input name='name' type="text" placeholder="Your Name" className="input input-bordered w-full max-w-xs" />
+                                    <input name='name' type="text" placeholder="Your Name..." className="input input-bordered w-full max-w-xs" />
                                 </label>
-                                <br />
-                                <label className="form-control w-full max-w-xs">
+                                <label className="form-control w-full max-w-xs mb-3">
+                                    <div className="label">
+                                        <span className="label-text">Photo URL</span>
+                                    </div>
+                                    <input name='photoURL' type="text" placeholder="Photo URL..." className="input input-bordered w-full max-w-xs" />
+                                </label>
+                                <label className="form-control w-full max-w-xs mb-3">
                                     <div className="label">
                                         <span className="label-text">Email</span>
                                     </div>
-                                    <br />
-                                    <input name='email' type="text" placeholder="Your Email" className="input input-bordered w-full max-w-xs" />
+                                    <input name='email' type="text" placeholder="Your Email..." className="input input-bordered w-full max-w-xs" />
                                 </label>
-                                <br />
-                                <label className="form-control w-full max-w-xs">
+                                <label className="form-control w-full max-w-xs mb-3">
                                     <div className="label">
                                         <span className="label-text">Password</span>
                                     </div>
-                                    <br />
-                                    <input name='password' type="text" placeholder="Your Password" className="input input-bordered w-full max-w-xs" />
+                                    <input name='password' type="password" placeholder="Your Password..." className="input input-bordered w-full max-w-xs" />
                                 </label>
                                 <div className='mt-4'>
                                     <input className='btn bg-black text-white w-xs' type="submit" value="Register" />
