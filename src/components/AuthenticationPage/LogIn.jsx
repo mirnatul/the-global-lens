@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/the-global-lens.png'
 import { FaGoogle } from 'react-icons/fa';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const LogIn = () => {
-    const [email, setEmail] = useState();
+    const { signInUser, handleGoogleSignIn } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -12,8 +14,28 @@ const LogIn = () => {
         const password = e.target.password.value;
         console.log(email, password);
         // console.log(e.target);
-
+        signInUser(email, password)
+            .then(result => {
+                navigate('/')
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     }
+
+    const logInWithGoogle = () => {
+        handleGoogleSignIn()
+            .then(result => {
+                navigate('/')
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
+
+
     return (
         <div style={{ backgroundImage: "url('https://images.pexels.com/photos/1022692/pexels-photo-1022692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }} className="bg-slate-200">
             <div className="max-w-[1050px] mx-auto px-2">
@@ -30,7 +52,7 @@ const LogIn = () => {
                                         <span className="label-text">Email</span>
                                     </div>
                                     <br />
-                                    <input name='email' type="text" placeholder="Your Email" className="input input-bordered w-full max-w-xs" />
+                                    <input name='email' type="email" placeholder="Your Email" className="input input-bordered w-full max-w-xs" />
                                 </label>
                                 <br />
                                 <label className="form-control w-full max-w-xs">
@@ -38,13 +60,13 @@ const LogIn = () => {
                                         <span className="label-text">Password</span>
                                     </div>
                                     <br />
-                                    <input name='password' type="text" placeholder="Your Password" className="input input-bordered w-full max-w-xs" />
+                                    <input name='password' type="password" placeholder="Your Password" className="input input-bordered w-full max-w-xs" />
                                 </label>
                                 <div className='mt-4'>
                                     <input className='btn bg-black text-white w-xs' type="submit" value="Log In" />
                                 </div>
                                 <div className='mt-2'>
-                                    <button className='btn bg-[#4285F4] text-white w-xs'>
+                                    <button onClick={logInWithGoogle} className='btn bg-[#4285F4] text-white w-xs'>
                                         <FaGoogle></FaGoogle>
                                         <p>Login with Google</p>
                                     </button>

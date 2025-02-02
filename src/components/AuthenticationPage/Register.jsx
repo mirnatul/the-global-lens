@@ -6,7 +6,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, handleGoogleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = e => {
@@ -30,10 +30,22 @@ const Register = () => {
                     .catch()
             })
             .catch(error => {
-                alert(error.message);
+                // alert(error.message);
             })
-
     }
+
+    const logInWithGoogle = () => {
+        handleGoogleSignIn()
+            .then(result => {
+                navigate('/')
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
+
+
     return (
         <div style={{ backgroundImage: "url('https://images.pexels.com/photos/1022692/pexels-photo-1022692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }} className="bg-slate-200">
             <div className="max-w-[1050px] mx-auto px-2">
@@ -61,7 +73,7 @@ const Register = () => {
                                     <div className="label">
                                         <span className="label-text">Email</span>
                                     </div>
-                                    <input name='email' type="text" placeholder="Your Email..." className="input input-bordered w-full max-w-xs" />
+                                    <input name='email' type="email" placeholder="Your Email..." className="input input-bordered w-full max-w-xs" />
                                 </label>
                                 <label className="form-control w-full max-w-xs mb-3">
                                     <div className="label">
@@ -73,7 +85,7 @@ const Register = () => {
                                     <input className='btn bg-black text-white w-xs' type="submit" value="Register" />
                                 </div>
                                 <div className='mt-2'>
-                                    <button className='btn bg-[#4285F4] text-white w-xs'>
+                                    <button onClick={logInWithGoogle} on className='btn bg-[#4285F4] text-white w-xs'>
                                         <FaGoogle></FaGoogle>
                                         <p>Login with Google</p>
                                     </button>

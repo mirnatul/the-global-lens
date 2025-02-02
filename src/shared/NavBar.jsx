@@ -97,7 +97,7 @@ const NavBar = () => {
                     {
                         user ?
                             <div className='flex items-center gap-2'>
-                                <p className='text-center font-bold hidden md:block'> {user.displayName.split(' ')[0]}</p>
+                                <p className='text-center font-bold hidden md:block'> {user.displayName?.split(' ')[0]}</p>
                                 <div className="dropdown dropdown-end">
                                     <div tabIndex={0} role="button" className="">
                                         <div className="avatar mr-3 cursor-pointer">
