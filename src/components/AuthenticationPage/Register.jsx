@@ -53,13 +53,13 @@ const Register = () => {
     }
 
     return (
-        <div style={{ backgroundImage: "url('https://images.pexels.com/photos/1022692/pexels-photo-1022692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }} className="bg-slate-200">
-            <div className="max-w-[1050px] mx-auto px-2">
+        <div style={{ backgroundImage: "url('https://images.pexels.com/photos/1022692/pexels-photo-1022692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }} className="max-w-[100%]">
+            <div className="max-w-[1050px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 h-screen items-center">
                     {/* form */}
                     <div className='mx-auto lg:mx-0'>
-                        <div className="bg-white py-8 px-20 max-w-[550px]">
-                            <img className='w-56' src={logo} alt="" />
+                        <div className="bg-white py-8 px-6 sm:px-16 lg:px-20 max-w-full md:max-w-[550px]">
+                            <img className='lg:w-56 w-48' src={logo} alt="" />
                             <hr className='border-1 my-2' />
                             <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center mt-10'>
                                 <p className='font-bold text-xl mb-6'>Create account</p>
