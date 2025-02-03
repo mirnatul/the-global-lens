@@ -6,7 +6,7 @@ import { CiBellOn, CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import moment from 'moment';
 import { useContext, useState } from 'react';
-import { Link, Navigate, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
 const NavBar = () => {
