@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram, FaPinterest, FaTwitter, FaYoutube } from "reac
 
 const Footer = () => {
     return (
-        <div className='mt-12 mb-6 px-2'>
+        <div className='mt-12 pt-12 pb-6 px-2'>
             <div className='md:flex gap-4 items-center'>
                 <div className='md:w-2/6'>
                     <img className='w-48' src={logoDark} alt="" />
@@ -13,23 +13,23 @@ const Footer = () => {
                 </div>
                 <div className='flex justify-between md:w-4/6 text-sm md:text-lg lg:text-xl mt-8'>
                     <div>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>About Us</p>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Contact Us</p>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Apps</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>About Us</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Contact Us</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Apps</p>
                     </div>
                     <div>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Comment Policy</p>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>RSS</p>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Sitemap</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Comment Policy</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>RSS</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Sitemap</p>
                     </div>
                     <div>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Advertisement</p>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Newsletter</p>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Privacy Policy</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Advertisement</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Newsletter</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Privacy Policy</p>
                     </div>
                     <div className='hidden sm:block'>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Conference Hall</p>
-                        <p className='hover:text-slate-400 cursor-pointer my-2'>Archives</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Conference Hall</p>
+                        <p className='hover:text-slate-400 cursor-pointer mb-2'>Archives</p>
                     </div>
                 </div>
             </div>
