@@ -29,7 +29,7 @@ const NavBar = () => {
                 <div>
                     <IoMdMenu onClick={() => setToggleMenu(!toggleMenu)} className='text-4xl cursor-pointer hover:scale-95'></IoMdMenu>
                     {
-                        toggleMenu && <div className='absolute bg-white border-r-2 border-slate-400 left-0 top-0 w-full lg:w-[600px] z-20'>
+                        toggleMenu && <div className='bg-white fixed border-r-2 border-slate-400 left-0 top-0 w-full lg:w-[600px] z-20'>
                             <div className='h-screen px-4 pt-2'>
                                 <div>
                                     <div className='flex items-center gap-4'>

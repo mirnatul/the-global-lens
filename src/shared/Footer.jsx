@@ -11,7 +11,7 @@ const Footer = () => {
                     <img className='w-48' src={logoDark} alt="" />
                     <p className='text-slate-400 md:text-lg mt-4'>Journalism without fear or favour</p>
                 </div>
-                <div className='flex justify-between md:w-4/6 text-sm md:text-lg lg:text-xl mt-8'>
+                <div className='flex justify-between md:w-4/6 text-sm md:text-lg mt-8'>
                     <div>
                         <p className='hover:text-slate-400 cursor-pointer mb-2'>About Us</p>
                         <p className='hover:text-slate-400 cursor-pointer mb-2'>Contact Us</p>
